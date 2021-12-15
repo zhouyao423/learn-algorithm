@@ -28,6 +28,16 @@ public class _5_LongestPalindrome {
     public static void main(String[] args) {
         System.out.println(longestPalindrome1("ccc"));
     }
+    //manacher算法
+    private static String manacher(String x){
+
+        return null;
+    }
+    //初始化数组 使用#在字符串中间填充 头尾使用^和$ 终止遍历
+    private static char[] init(){
+
+        return null;
+    }
 
     //动态规划
     private static String longestPalindrome1(String x) {
