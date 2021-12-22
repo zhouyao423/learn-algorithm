@@ -1,6 +1,6 @@
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Stack;
+
 
 public class _31_nextPermutation {
     //实现获取 下一个排列 的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列（即，组合出下一个更大的整数）。
@@ -27,10 +27,45 @@ public class _31_nextPermutation {
     //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
     public static void main(String[] args) {
 //        int[] nums = {4, 2, 0, 2, 3, 2, 0};
-        int[] nums = {2, 3,1};
-        nextPermutation1(nums);
+        int[] nums = {2, 3, 1};
+        nextPermutation2(nums);
         System.out.println(Arrays.toString(nums));
     }
+
+    private static void nextPermutation2(int[] nums) {
+        //先找到右边大于左边的数
+        int index = nums.length - 2;
+        while (index >= 0 && nums[index] >= nums[index + 1]) {
+            index--;
+        }
+        //找[index+1,)区间内大于index的最小数
+        if (index >= 0) {
+            for (int i = nums.length - 1; i > index; i--) {
+                if (nums[i] > nums[index]) {
+                    swap(nums, index, i);
+                    break;
+                }
+            }
+        }
+        //将[index+1,) 翻转
+        reverse(nums, index + 1);
+    }
+
+    private static void reverse(int[] nums,int left) {
+        int right = nums.length - 1;
+        while (left < right) {
+            swap(nums, left, right);
+            left++;
+            right--;
+        }
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
 
     private static void nextPermutation1(int[] nums) {
         if (nums.length <= 1) {
@@ -39,7 +74,7 @@ public class _31_nextPermutation {
         LinkedList<Integer> list = new LinkedList<>();
         fun(nums, list, nums.length - 1);
         for (int i = 0; i < list.size(); i++) {
-            nums[nums.length - list.size() +i] = list.get(i);
+            nums[nums.length - list.size() + i] = list.get(i);
         }
     }
 
@@ -58,7 +93,7 @@ public class _31_nextPermutation {
                     listi = list.get(i + 1);
                     int temp = nums[index];
                     nums[index] = listi;
-                    list.set(i+1, temp);
+                    list.set(i + 1, temp);
                     return;
                 }
 //                if (nums[index] > listi) {
