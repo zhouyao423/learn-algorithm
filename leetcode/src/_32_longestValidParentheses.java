@@ -24,8 +24,58 @@ public class _32_longestValidParentheses {
     //链接：https://leetcode-cn.com/problems/longest-valid-parentheses
     //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
     public static void main(String[] args) {
-        System.out.println(longestValidParentheses("(()))())("));
+        System.out.println(longestValidParentheses2("()(())"));
     }
+
+    //dp解法
+    public static int longestValidParentheses2(String s) {
+        int[] dp = new int[s.length()];
+        int max = 0;
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == ')') {
+                if (s.charAt(i - 1) == '(') {
+                    if (i == 1) {
+                        dp[i] = 2;
+                    } else {
+                        dp[i] = dp[i - 2] + 2;
+                    }
+                } else if (dp[i - 1] > 0) {
+                    //))
+                    if (i - dp[i - 1] - 1 < 0) {
+                        continue;
+                    } else if (s.charAt(i - dp[i - 1] - 1) == '(') {
+                        dp[i] = dp[i - 1] + 2;
+                        if (i - dp[i - 1] - 2>=0){
+                            dp[i] = dp[i - 1] + dp[i - dp[i - 1] - 2] + 2;
+                        }
+                    }
+                }
+            }
+            max = Math.max(max, dp[i]);
+        }
+        return max;
+    }
+
+    //简化版栈解法
+    public static int longestValidParentheses1(String s) {
+        Stack<Integer> stack = new Stack<>();
+        int max = 0;
+        stack.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                stack.pop();
+                if (stack.empty()) {
+                    stack.push(i);
+                } else {
+                    max = Math.max(max, i - stack.peek());
+                }
+            }
+        }
+        return max;
+    }
+
 
     public static int longestValidParentheses(String s) {
         Stack<Integer> stack = new Stack<>();
@@ -60,11 +110,11 @@ public class _32_longestValidParentheses {
         while (stack.size() > 1) {
             int pop = stack.pop();
             if (last - pop >= 2) {
-                max = Math.max(max, (last - pop)/2*2);
+                max = Math.max(max, (last - pop) / 2 * 2);
             }
             last = pop;
             if (stack.size() == 1) {
-                max = Math.max(max, last - startIndex );
+                max = Math.max(max, last - startIndex);
             }
         }
         return max;
