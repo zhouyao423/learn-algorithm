@@ -29,8 +29,36 @@ public class _39_combinationSum {
     //输入: candidates = [2], target = 1
     //输出: []
     public static void main(String[] args) {
-        System.out.println(combinationSum(new int[]{2, 3, 5}, 8));
+        System.out.println(combinationSum1(new int[]{2, 3, 5}, 8));
     }
+
+    private static List<List<Integer>> combinationSum1(int[] candidates, int target) {
+
+        ArrayList<List<Integer>> list = new ArrayList<>();
+        dfs(candidates,target,0,new ArrayList<>(), list);
+        return list;
+    }
+
+    private static void dfs(int[] candidates, int target, int index, List<Integer> list1, List<List<Integer>> list) {
+        if (index >= candidates.length) {
+            return;
+        }
+        if (target == 0) {
+            list.add(new ArrayList<>(list1));
+            return;
+        }
+
+
+        //选择当前的数
+        if (target > 0) {
+            list1.add(candidates[index]);
+            dfs(candidates, target - candidates[index], index, list1, list);
+            list1.remove(list1.size() - 1);
+        }
+        //跳过当前数
+        dfs(candidates, target, index + 1, list1, list);
+    }
+
 
     private static List<List<Integer>> combinationSum(int[] candidates, int target) {
         if (candidates.length == 0) {
