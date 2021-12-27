@@ -16,10 +16,32 @@ public class _42_trap {
     //输入：height = [4,2,0,3,2,5]
     //输出：9
     public static void main(String[] args) {
-        System.out.println(trap(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
+        System.out.println(trap2(new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1}));
     }
 
-    //动态规划
+    //双指针
+    private static int trap2(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+        int leftMax = 0;
+        int rightMax = 0;
+        int count = 0;
+
+        while (left < right){
+            leftMax  = Math.max(leftMax,height[left]);
+            rightMax = Math.max(rightMax,height[right]);
+            if (rightMax > leftMax){
+                count += leftMax - height[left];
+                left ++;
+            }else{
+                count += rightMax - height[right];
+                right --;
+            }
+        }
+        return count;
+    }
+
+    //动态规划 分别计算当前位置的左边最大值和右边的最大值
     private static int trap1(int[] height) {
         int[] leftMax = new int[height.length];
         int[] rightMax = new int[height.length];
@@ -44,22 +66,6 @@ public class _42_trap {
         return count;
     }
 
-    private void calc1(int[] height, int left, int right, int count) {
-        if (right - left <= 1) {
-            return;
-        }
-        if (height[left] < height[left + 1]) {
-            calc(height, left++, right, count);
-            return;
-        }
-        for (int i = left; i < right - 1; i++) {
-            for (int j = left + 2; j <= right; j++) {
-
-            }
-        }
-
-
-    }
 
     public static int trap(int[] height) {
         int count = 0;
