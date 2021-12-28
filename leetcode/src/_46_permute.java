@@ -32,6 +32,7 @@ public class _46_permute {
             result.add(new ArrayList<>(list));
             return;
         }
+
         for (int i = 0; i < nums.length; i++) {
             if (!record[i]) {
                 list.add(nums[i]);
