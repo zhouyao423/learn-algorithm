@@ -25,6 +25,7 @@ public class _94_inorderTraversal {
             list.add(pop.val);
             root = pop.right;
         }
+
         return list;
     }
 
