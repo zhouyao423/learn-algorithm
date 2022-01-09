@@ -43,7 +43,7 @@ public class _94_inorderTraversal {
         mid(list,node.right);
     }
 
-    public class TreeNode {
+    protected class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
