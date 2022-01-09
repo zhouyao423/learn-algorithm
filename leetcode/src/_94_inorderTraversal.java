@@ -16,13 +16,14 @@ public class _94_inorderTraversal {
     public static List<Integer> inorderTraversal1(TreeNode root) {
         List<Integer> list = new ArrayList<>();
         Deque<TreeNode> stack = new ArrayDeque<>();
-        while (!stack.isEmpty()){
-            while (root.left!=null){
+        while (!stack.isEmpty() || root!=null){
+            while (root!=null){
                 stack.push(root);
                 root = root.left;
             }
-            list.add(stack.pop().val);
-            root = stack.peek().right;
+            TreeNode pop = stack.pop();
+            list.add(pop.val);
+            root = pop.right;
         }
         return list;
     }
