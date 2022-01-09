@@ -18,6 +18,7 @@ public class _96_numTrees {
                 dp[i]+= dp[j-1] * dp[i-j];
             }
         }
+
         return dp[n];
     }
 }
