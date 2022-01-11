@@ -17,7 +17,23 @@ public class _124_maxPathSum {
     public static void main(String[] args) {
 
     }
+
     public int maxPathSum(TreeNode root) {
-        return 0;
+        maxGen(root);
+        return max;
+    }
+
+    private static int max = Integer.MIN_VALUE;
+
+    private static int maxGen(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftGen = Math.max(maxGen(root.left), 0);
+        int rightGen = Math.max(maxGen(root.right), 0);
+        int path = root.val + leftGen + rightGen;
+        max = Math.max(max, path);
+        root.val = root.val + Math.max(leftGen, rightGen);
+        return root.val;
     }
 }
