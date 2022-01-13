@@ -21,3 +21,20 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+.gradle/6.8/fileHashes/fileHashes.lock
+.gradle/6.8/executionHistory/executionHistory.lock
+.gradle/6.8/fileChanges/last-build.bin
+.gradle/6.8/gc.properties
+.gradle/buildOutputCleanup/cache.properties
+out/production/leetcode/0_readme.md
+leetcode/leetcode.iml
+DynamicProgramming/DynamicProgramming.iml
+.idea/vcs.xml
+.idea/modules.xml
+.idea/misc.xml
+.idea/learn-algorithm.iml
+.idea/inspectionProfiles/Project_Default.xml
+.gradle/vcs-1/gc.properties
+.gradle/configuration-cache/gc.properties
+.gradle/checksums/checksums.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
