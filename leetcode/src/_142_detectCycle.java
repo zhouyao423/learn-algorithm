@@ -20,8 +20,26 @@ public class _142_detectCycle {
     }
     public ListNode detectCycle(ListNode head) {
         if (head==null||head.next == null){
-            return head;
+            return null;
         }
-        ListNode quick = head;
+        ListNode slow = head;
+        ListNode quick = head.next;
+        ListNode temp = head;
+        while (slow!=null&&quick!=null){
+            if (slow==quick){
+                while (temp!=slow){
+                    temp = temp.next;
+                    slow = slow.next;
+                }
+                return temp;
+            }
+            slow = slow.next;
+            if (quick.next!=null){
+                quick = quick.next.next;
+            }else {
+                return null;
+            }
+        }
+        return null;
     }
 }
