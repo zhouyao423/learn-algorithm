@@ -1,4 +1,3 @@
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.REUtil;
 
 public class _141_hasCycle {
     //141. 环形链表 https://leetcode-cn.com/problems/linked-list-cycle/
