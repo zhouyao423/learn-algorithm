@@ -42,7 +42,7 @@ public class _215_findKthLargest {
     static Random random = new Random();
 
     private static int randomPartition(int[] nums, int left, int right) {
-        int i = random.nextInt(right - left + 1)+1 ;
+        int i = random.nextInt(right - left + 1) + 1;
         swap(nums, i, right);
         return partition(nums, left, right);
     }
@@ -65,5 +65,48 @@ public class _215_findKthLargest {
         int temp = nums[l];
         nums[l] = nums[r];
         nums[r] = temp;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {5, 4, 6, 7, 1, 2, 3, 4, 2, 1, 0};
+        heapSort(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+
+    //堆排序
+    private static void heapSort(int[] nums) {
+        buildMaxHeap(nums);
+        for (int i = nums.length - 1; i > 0; i--) {
+            swap(nums, 0, i);
+            deepHeap(nums, 0, i-1);
+        }
+    }
+
+    //构建最大堆
+    private static void buildMaxHeap(int[] nums) {
+        for (int i = nums.length / 2; i >=0; i--) {
+            deepHeap(nums, i, nums.length - 1);
+        }
+    }
+
+    private static void deepHeap(int[] nums, int rootNode, int endIndex) {
+        if (rootNode >= endIndex) {
+            return;
+        }
+        int left = rootNode * 2 + 1;
+        int right = rootNode * 2 + 2;
+        int maxIndex = rootNode;
+        if (left <= endIndex && nums[left] > nums[maxIndex]) {
+            maxIndex = left;
+        }
+        if (right <= endIndex && nums[right] > nums[maxIndex]) {
+            maxIndex = right;
+        }
+        //说明子节点比父节点大
+        if (maxIndex != rootNode) {
+            swap(nums, rootNode, maxIndex);
+            //继续对maxindex处的node进行建堆
+            deepHeap(nums, maxIndex, endIndex);
+        }
     }
 }
