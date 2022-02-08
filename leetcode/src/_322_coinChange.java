@@ -26,13 +26,14 @@ public class _322_coinChange {
             return 0;
         }
         Arrays.sort(coins);
+        int minDepth = Integer.MAX_VALUE;
         for (int i = coins.length-1; i >=0 ; i--) {
             int depth = dfs(coins, i, amount, 0);
             if (depth >0) {
-                return depth;
+                minDepth = Math.min(minDepth,depth);
             }
         }
-        return -1;
+        return minDepth ==Integer.MAX_VALUE?-1:minDepth;
     }
 
     private int dfs(int[] coins, int startIndex, int amount, int depth) {
