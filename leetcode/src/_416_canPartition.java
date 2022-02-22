@@ -44,6 +44,39 @@ public class _416_canPartition {
         return dp[nums.length - 1][sum + 1];
     }
 
+    public boolean canPartition1(int[] nums) {
+        if (nums.length < 2) {
+            return false;
+        }
+        int sum = 0;
+        int max = 0;
+        for (int num : nums) {
+            max = Math.max(max,num);
+            sum += num;
+        }
+        if ((sum & 1) == 1) {
+            return false;
+        }
+        sum = sum / 2;
+        if (max>sum){
+            return false;
+        }
+        boolean[] dp = new boolean[sum+1];
+        dp[0] = true;
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = sum; j >=nums[i]; j--) {
+                if (nums[i] >= j) {
+                    if (dp[sum]){
+                        return true;
+                    }
+                    dp[j] =dp[j] | dp[j-nums[i]];
+                }
+            }
+        }
+
+        return dp[sum];
+    }
+
     private boolean dfs(int[] nums, int sum, int i) {
         if (nums[i] > sum) {
             return false;
