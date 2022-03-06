@@ -1,16 +1,44 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class _438_findAnagrams {
     public static void main(String[] args) {
         _438_findAnagrams a = new _438_findAnagrams();
-        List<Integer> anagrams = a.findAnagrams1("cbaebabacd", "abc");
+        List<Integer> anagrams = a.findAnagrams2("cbaebabacd", "abc");
         System.out.println(anagrams);
     }
+    public List<Integer> findAnagrams2(String s, String p) {
+        if (s.length() > p.length()){
+            return new ArrayList<>();
+        }
+        char[] chars = p.toCharArray();
+        int[] pArray = new int[26];
+        for (int i = 0; i < chars.length; i++) {
+            int index = chars[i] - 'a';
+            pArray[index]++;
+        }
+        int[] sArray = new int[26];
+        char[] sChars = s.toCharArray();
+        int plenth = p.length();
+        for (int i = 0; i < plenth; i++) {
+            int index = sChars[i] - 'a';
+            sArray[index]++;
+        }
+        List<Integer> list = new ArrayList<>();
+        if (Arrays.equals(pArray,sArray)){
+            list.add(0);
+        }
+        for (int i = plenth; i < sChars.length; i++) {
+            int index = sChars[i] - 'a';
+            sArray[index] ++;
+            sArray[sChars[i-plenth] - 'a']--;
+            if (Arrays.equals(pArray,sArray)){
+                list.add(i-plenth+1);
+            }
+        }
+        return list;
+    }
 
-    public List<Integer> findAnagrams1(String s, String p) {
+        public List<Integer> findAnagrams1(String s, String p) {
         char[] chars = p.toCharArray();
         Map<Character, Integer> countMap = new HashMap<>();
         for (int i = 0; i < chars.length; i++) {
