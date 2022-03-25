@@ -11,8 +11,7 @@ public class _50_myPow {
 
     public static void main(String[] args) {
         _50_myPow m = new _50_myPow();
-        double v = m.myPow(2.00000,
-                -2147483648);
+        double v = m.myPow(2.00000,-2147483648);
         System.out.println(v);
     }
 
