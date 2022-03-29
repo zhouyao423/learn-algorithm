@@ -13,7 +13,7 @@ public class _4_quick {
     public static void main(String[] args) {
         _4_quick q = new _4_quick();
         int[] nums = {0, 4, 5, 0, 5, 0, 25, 6, 2, 0, 1, 4, 8, 9, 5, 12, 0, 5};
-        q.sort(nums);
+        q.sortTest(nums,0,17);
         System.out.println(Arrays.toString(nums));
     }
 
@@ -48,4 +48,48 @@ public class _4_quick {
         nums[i] = nums[j];
         nums[j] = temp;
     }
+
+
+    /**
+     * 双指针快排
+     * @param nums
+     */
+    public void sortTest(int[] nums,int left ,int right){
+        if (left >=right){
+            return;
+        }
+
+      int pIndex =  partitionNums(nums,left,right);
+      sortTest(nums,left,pIndex -1);
+      sortTest(nums,pIndex +1,right);
+    }
+
+    private int partitionNums(int[] nums, int left, int right) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(right - left) + left;
+        int pivot = nums[randomIndex];
+        swap(nums,left,randomIndex);
+
+        int lt = left +1;
+        int gt = right;
+        while (lt < gt){
+
+            while (lt<=right&&nums[lt]<pivot){
+                lt++;
+            }
+            while (gt >left && nums[gt] > pivot){
+                gt--;
+            }
+            if (lt > gt){
+                break;
+            }
+            swap(nums,lt,gt);
+            lt++;
+            gt--;
+        }
+        swap(nums,left,gt);
+        return gt;
+    }
+
+
 }
